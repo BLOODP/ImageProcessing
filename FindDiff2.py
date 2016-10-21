@@ -65,14 +65,5 @@ print "img2_64" , img2_64.dtype
 
 
 
-
-
-#
-
-# img1_canny = cv2.Canny(img1,100,200)
-# img2_canny = cv2.Canny(img2,100,200)
-# cv2.imshow("img1_canny",img1_canny)
-# cv2.imshow("img2_canny",img2_canny)
-
 cv2.waitKey(0)
 cv2.destroyAllWindows()
