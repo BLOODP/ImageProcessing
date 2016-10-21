@@ -46,23 +46,6 @@ cv2.imshow("img2_canny",img2)
 img2_64 = np.array(img2_canny.tolist(),dtype='int64')
 print "img2_64" , img2_64.dtype
 
-# dst = cv2.addWeighted(img1_canny,0.5,img2_canny,0.5,0)
-# cv2.imshow("dst",dst)
-
-# ret,th = cv2.threshold(dst,200,255,cv2.THRESH_BINARY_INV)
-# cv2.imshow("th",th)
-
-# sub = img2_64 - img1_64
-# print 'sub:',sub.dtype
-# mask = np.absolute(sub)
-
-#将mask转换为 uint8 类型
-# mask = np.array(mask.tolist(),dtype='uint8')
-# cv2.imshow("mask",mask)
-# print 'mask:',mask.dtype
-# print 'sub:',sub.shape
-# print np.sum(mask<0,0)  # 检验是否仍有小于0的像素值
-
 
 
 cv2.waitKey(0)
