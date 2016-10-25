@@ -200,9 +200,6 @@ class Ui_MainWindow(object):
                                    QtGui.QImage.Format_RGB888)
         self.output.setPixmap(QtGui.QPixmap.fromImage(self.qimage))
 
-
-
-
 import sys
 app = QtWidgets.QApplication(sys.argv)
 form = QtWidgets.QMainWindow()
