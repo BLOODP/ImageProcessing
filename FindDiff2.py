@@ -9,16 +9,9 @@ print origin.shape
 #   将彩色图片转换为灰度图
 img = cv2.cvtColor(origin,cv2.COLOR_BGR2GRAY)
 
-# for i in range(img.shape[1]):
-#     col = np.all(img[:,i]==255)
-#     print col
 cols = [ i for i in range(img.shape[1]) if np.all(img[400:,i]==255)]
 print 'cols :',cols
 
-#
-# cv2.namedWindow("origin image",cv2.WINDOW_NORMAL)
-# cv2.namedWindow("thresh1",cv2.WINDOW_NORMAL)
-# cv2.namedWindow("thresh",cv2.WINDOW_NORMAL)
 
 cv2.imshow("origin image",origin)
 
@@ -45,8 +38,6 @@ img2_canny = cv2.Canny(img2,100,200)
 cv2.imshow("img2_canny",img2)
 img2_64 = np.array(img2_canny.tolist(),dtype='int64')
 print "img2_64" , img2_64.dtype
-
-
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
