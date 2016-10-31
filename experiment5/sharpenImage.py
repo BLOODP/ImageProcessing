@@ -6,7 +6,7 @@ img = cv2.imread("/Users/heguangqin/Pictures/source_1.jpg")
 
 img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
-lap = np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])  #拉普拉斯核
+lap = np.array([[0,-1,0],[-1,5,-1],[0,-1,0]],dtype='int32')  #拉普拉斯核
 print lap.dtype
 
 rows,cols = img_gray.shape
@@ -28,6 +28,8 @@ print sharpe.dtype
 
 cv2.imshow("gray",img_gray)
 cv2.imshow("averaging 3*3",avg33)
-cv2.imshow("gaussian 3*3",sharpe)
+cv2.imshow("sharp 3*3",sharpe)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+cv2.cv.CreateImage()

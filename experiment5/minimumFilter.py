@@ -10,19 +10,13 @@ minimum =  img_gray.copy()
 
 print "starting"
 for r in range(1,rows-1):
-    # row1 = img_gray[r-1:]
-    # row2 = img_gray[r:]
-    # row3 = img_gray[r+1:]
     for c in range(1,cols-1):
-        # img_gray[r,c] = (row1[c-1]+row1[c]+row1[c+1]+row2[c-1]+row2[c]+row2[c+1+row3[c-1]+row3[c]+row3[c+1])/9
         minimum[r, c] = img_gray[r-1:r+2,c-1:c+2].min()
-
-
-
 print "end"
 
 cv2.imshow("gray",img_gray)
 cv2.imshow("minimum 3*3",minimum)
-# cv2.imshow("averaging 5*5",avg55)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
