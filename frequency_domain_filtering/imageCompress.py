@@ -1,3 +1,4 @@
+# coding=utf-8
 import cv2
 import numpy as np
 
@@ -15,7 +16,7 @@ mseR = 0
 
 src = cv2.cv.LoadImage('/Users/heguangqin/Pictures/fengche.jpg',1)
 cv2.cv.ShowImage('src',src)
-print 'src : ',src.depth
+
 yuv_image = cv2.cv.CreateImage(cv2.cv.GetSize(src),src.depth,3)
 dst = cv2.cv.CreateImage(cv2.cv.GetSize(src),src.depth,3)
 dst_yuv = cv2.cv.CreateImage(cv2.cv.GetSize(src),src.depth,3)
@@ -24,11 +25,11 @@ Y = cv2.cv.CreateImage(cv2.cv.GetSize(src),cv2.cv.IPL_DEPTH_8U,1)
 U = cv2.cv.CreateImage(cv2.cv.GetSize(src),cv2.cv.IPL_DEPTH_8U,1)
 V = cv2.cv.CreateImage(cv2.cv.GetSize(src),cv2.cv.IPL_DEPTH_8U,1)
 
-# cv2.cv.ShowImage('Y',Y)
-
 cv2.cv.CvtColor(src,yuv_image,cv2.cv.CV_BGR2YCrCb)
 cv2.cv.ShowImage('yuv',yuv_image)
 cv2.cv.Split(yuv_image,Y,U,V,None)
+
+
 cv2.cv.ShowImage('Y',Y)
 cv2.cv.ShowImage('u',U)
 cv2.cv.ShowImage('V',V)
@@ -45,11 +46,10 @@ cv2.cv.Scale(Y,MatY)
 cv2.cv.Scale(U,MatU)
 cv2.cv.Scale(V,MatV)
 
+#    分别对三个分量进行图像余弦变换
 cv2.cv.DCT(MatY,DCTY,cv2.cv.CV_DXT_FORWARD)
 cv2.cv.DCT(MatU,DCTU,cv2.cv.CV_DXT_FORWARD)
 cv2.cv.DCT(MatV,DCTV,cv2.cv.CV_DXT_FORWARD)
-print 'dcty',dir(DCTY)
-print DCTY.rows,DCTY.cols,cv2.cv.Get2D(MatY,100,100),cv2.cv.Get2D(Y,100,100),cv2.cv.Get2D(DCTY,100,100)
 
 
 for i in range(Y.height):
@@ -68,17 +68,7 @@ arr = np.zeros((800, 1280), dtype='uint8')
 for i in range(800):
     for j in range(1280):
         arr[i, j] = cv2.cv.Get2D(DCTV, i, j)[0]
-# for i in range(U.height):
-#     for j in range(U.width):
-#         val = cv2.cv.Get2D(DCTU,i,j)
-#         if abs(val[0]) < 800:
-#             cv2.cv.Set2D(DCTU,i,j,(0,))
-#
-# for i in range(V.height):
-#     for j in range(V.width):
-#         val = cv2.cv.Get2D(DCTV,i,j)
-#         if abs(val[0]) < 20:
-#             cv2.cv.Set2D(DCTV,i,j,(0,))
+
 
 cv2.cv.DCT(DCTY,MatY,cv2.cv.CV_DXT_INVERSE)
 cv2.cv.DCT(DCTU,MatU,cv2.cv.CV_DXT_INVERSE)
@@ -122,4 +112,3 @@ print "--------------"
 cv2.imshow('dcty',arr)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-cv2.warpPerspective()
