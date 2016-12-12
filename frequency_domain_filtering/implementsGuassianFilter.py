@@ -79,10 +79,8 @@ def buttersworthHighFilter():
 
 
 image = cv2.imread('/Users/heguangqin/Pictures/fengche.jpg')
-cv2.imshow('image', image)
-
 image = cv2.resize(image, (800, 600))
-cv2.imshow('resized_image', image)
+cv2.imshow('image', image)
 
 image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imshow('grayscale_image', image_gray)
@@ -134,43 +132,40 @@ for i in range(image_gray.shape[0]):
 # ------------- 使用 opencv 快速傅立叶变换 （速度快，效率高）建议使用opencv 快速傅立叶变换
 
 oph = cv2.getOptimalDFTSize(image_gray.shape[0])
-print 'oph : ', oph
 opw = cv2.getOptimalDFTSize(image_gray.shape[1])
-print 'opw : ', opw
 padded = cv2.copyMakeBorder(image_gray, 0, oph - image_gray.shape[0], 0, opw - image_gray.shape[1], cv2.BORDER_CONSTANT,
                             value=0)
-print padded.shape
 temp = [padded, np.zeros(image_gray.shape, dtype='float32')]
-# complexl = None
 complexl = cv2.merge(temp)
-print 'complesl dtype : ', complexl.dtype, complexl.shape
 
+#   傅立叶变换
 cv2.dft(complexl, complexl)
 cv2.split(complexl, temp)
+
+#    显示频谱图
 aa = cv2.magnitude(temp[0], temp[1])
 aa = cv2.divide(aa, opw * oph)
-print 'aa dtype', aa.dtype, aa.shape
 cv2.imshow('aa', aa)
 
 # gaussian = gaussianLowFilter()
 # gaussian = gaussianHighFilter()
 # gaussian = idealLowFilter()
 # gaussian = idealHighFilter()
-gaussian = buttersworthHighFilter()
+# gaussian = buttersworthHighFilter()
+gaussian = buttersworthLowFilter()
 
-print 'gausssian dtype shape : ', gaussian.dtype, gaussian.shape
-
+#   频率过滤
 gaussian = cv2.multiply(complexl, gaussian)
 cv2.split(gaussian, temp)
+
+#     显示频率过滤之后的频谱图
 bb = cv2.magnitude(temp[0], temp[1])
 bb = cv2.divide(bb, opw * oph)
-print 'aa dtype', bb.dtype, bb.shape
 cv2.imshow('bb', bb)
 print gaussian.shape
-print 'before : ', gaussian[0, :10]
 
+#     傅立叶反变换
 cv2.dft(gaussian, gaussian, cv2.DFT_INVERSE)
-print 'after : ', gaussian[0, :10]
 
 dstBlur = cv2.split(gaussian)
 for i in range(oph):
